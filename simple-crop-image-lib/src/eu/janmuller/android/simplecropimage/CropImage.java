@@ -24,6 +24,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.CountDownLatch;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -100,7 +102,9 @@ public class CropImage extends MonitoredActivity {
     private final BitmapManager.ThreadSet mDecodingThreads =
             new BitmapManager.ThreadSet();
 
-    @Override
+    @SuppressLint("NewApi")
+	@TargetApi(Build.VERSION_CODES.DONUT)
+	@Override
     public void onCreate(Bundle icicle) {
 
         super.onCreate(icicle);
@@ -119,7 +123,7 @@ public class CropImage extends MonitoredActivity {
 
             if (extras.getString(CIRCLE_CROP) != null) {
 
-        	if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+        	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             		mImageView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         	}
 
